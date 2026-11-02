@@ -1,8 +1,8 @@
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum ProjectType {
     Flutter,
+    Rust,
     // Nodejs,
-    // Rust,
     // Go,
     // Python,
     // Zig,
@@ -12,4 +12,13 @@ pub enum ProjectType {
     // GoCache,
     // LinuxCache,
     // GradleCaches,
+}
+
+impl ProjectType {
+    pub fn as_string(&self) -> &'static str {
+        match self {
+            ProjectType::Flutter => "Flutter",
+            ProjectType::Rust => "Rust",
+        }
+    }
 }

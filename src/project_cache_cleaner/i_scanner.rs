@@ -2,18 +2,14 @@ use std::path::PathBuf;
 
 use crate::project_cache_cleaner::{project_info::ProjectInfo, project_type::ProjectType};
 
-pub trait IScanner {
+pub trait IScanner: Send + Sync {
     fn project_type(&self) -> ProjectType;
     fn cache_folder_names(&self) -> Vec<String>;
     fn is_match(&self, filename: &String) -> bool;
-    fn should_queue_sub_folder(&self, dirname: &str) -> bool;
+    fn should_queue_sub_folder(&self, _dirname: &str) -> bool {
+        return false;
+    }
     fn process(&self, current_dir: PathBuf) -> Option<ProjectInfo> {
-        // println!("P: {:?}", self.project_type());
-        // println!(
-        //     "current_dir: {:?} - is_dir: {}",
-        //     current_dir,
-        //     current_dir.is_dir()
-        // );
         let mut cache_folders: Vec<PathBuf> = vec![];
 
         let mut subs: Vec<PathBuf> = vec![];
@@ -48,6 +44,7 @@ pub trait IScanner {
                 home_dir: current_dir,
                 p_type: self.project_type(),
                 cache_folders,
+                size: 0,
             };
             return Some(p);
         }

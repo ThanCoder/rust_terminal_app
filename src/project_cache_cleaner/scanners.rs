@@ -22,3 +22,20 @@ impl IScanner for FlutterScanner {
         false
     }
 }
+
+pub struct RustScanner;
+
+impl IScanner for RustScanner {
+    fn project_type(&self) -> super::project_type::ProjectType {
+        ProjectType::Rust
+    }
+
+    fn cache_folder_names(&self) -> Vec<String> {
+        vec![String::from("target")]
+    }
+
+    fn is_match(&self, filename: &String) -> bool {
+        filename == "Cargo.toml"
+    }
+    
+}
