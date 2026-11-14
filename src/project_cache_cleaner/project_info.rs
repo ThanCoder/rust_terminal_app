@@ -13,9 +13,9 @@ pub struct ProjectInfo {
 }
 
 impl ProjectInfo {
-    pub fn path(&self) -> String {
-        self.home_dir.to_str().unwrap().to_string()
-    }
+    // pub fn path(&self) -> String {
+    //     self.home_dir.to_str().unwrap().to_string()
+    // }
     pub fn path_name(&self) -> String {
         self.home_dir
             .file_name()
